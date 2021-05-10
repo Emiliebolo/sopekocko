@@ -1,19 +1,22 @@
 const bcrypt = require('bcrypt');
 
-const jwt = require ('jsonwebtoken');
+const jsonWebToken = require ('jsonwebtoken');
+
+const User = require('../models/User');
 
 require('dotenv').config();
 
-const User = require('../models/user');
+
 
 
 
 
 exports.signup = (req, res, next) => {
+  const bufferMail = Buffer.from(req.body.email);
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
-          email: req.body.email,
+          email: bufferMail.toString('hex'),
           password: hash
         });
         user.save()
@@ -24,7 +27,8 @@ exports.signup = (req, res, next) => {
   };
 
   exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email })
+    const bufferMail = Buffer.from(req.body.email);
+    User.findOne({ email: bufferMail.toString('hex') })
       .then(user => {
         if (!user) {
           return res.status(401).json({ error: 'Utilisateur non trouvé !' });
@@ -36,7 +40,7 @@ exports.signup = (req, res, next) => {
             }
             res.status(200).json({
               userId: user._id,
-              token: jwt.sign({ userId: user._id },process.env.JWT_TOKEN,
+              token: jsonWebToken.sign({ userId: user._id }, process.env.JWT_TOKEN,
                 { expiresIn: '1h' }
               )
             });
