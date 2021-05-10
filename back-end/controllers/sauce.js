@@ -102,8 +102,8 @@ exports.deleteSauce = (req, res, next) => {
 
 exports.getAllSauce = (req, res, next) => {
   Sauce.find().then(
-    (sauce) => {
-      res.status(200).json(sauce);
+    (sauces) => {
+      res.status(200).json(sauces);
     }
   ).catch(
     (error) => {

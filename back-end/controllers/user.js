@@ -7,16 +7,11 @@ const User = require('../models/User');
 require('dotenv').config();
 
 
-
-
-
-
 exports.signup = (req, res, next) => {
-  const bufferMail = Buffer.from(req.body.email);
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
-          email: bufferMail.toString('hex'),
+          email: req.body.email,
           password: hash
         });
         user.save()
@@ -27,8 +22,8 @@ exports.signup = (req, res, next) => {
   };
 
   exports.login = (req, res, next) => {
-    const bufferMail = Buffer.from(req.body.email);
-    User.findOne({ email: bufferMail.toString('hex') })
+    
+    User.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
           return res.status(401).json({ error: 'Utilisateur non trouvé !' });

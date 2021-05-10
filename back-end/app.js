@@ -27,6 +27,7 @@ const app = express();
 
 mongoose.connect('mongodb+srv://smouflette13:Guimauve13@cluster0.dyxxx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   {
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -56,7 +57,7 @@ app.use(express.json());
 app.use(helmet());
 
 /* Mise ne place de la route des sauces */
-app.use('/api/sauce', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 
 /* Mise en place de la route des utilisateurs */
 app.use('/api/auth', userRoutes);
