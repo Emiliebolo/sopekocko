@@ -18,7 +18,7 @@ const userCtrl = require('../controllers/user');
 
 /* Création des routes inscription et de connexion */
 /* Permet de chiffret le password et de l'ajouterutilisateur à la base de donnée */
-router.post('/signup', checkPassword, checkEmail, userCtrl.signup);
+router.post('/signup', /*checkPassword,*/ checkEmail, userCtrl.signup);
 
 router.post('/login', checkEmail, userCtrl.login);
 

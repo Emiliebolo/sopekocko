@@ -3,6 +3,8 @@
 /* Importation framework express */
 const express = require('express');
 
+const bodyParser = require('body-parser');
+
 /*Aprés installation de mongoose importation du package pour se connecter à la base de donnée mongo db*/
 const mongoose = require('mongoose');
 
@@ -25,7 +27,7 @@ const app = express();
 
 /* Mise en place du middleware pour acceder à l'API */
 
-mongoose.connect('mongodb+srv://smouflette13:Guimauve13@cluster0.dyxxx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://smouflette:Guimauveprod13@cluster0.xnz9b.mongodb.net/SCRAM?retryWrites=true&w=majority',
   {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -51,7 +53,7 @@ app.use(cors()) */
 
 
 /* Transforme le corps de la requête en un objet JSON */
-app.use(express.json());
+app.use(bodyParser.json());
 
 /* Helmet est un middleware de type Connect , qui est compatible avec des frameworks comme Express */
 app.use(helmet());
