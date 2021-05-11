@@ -1,13 +1,13 @@
 /* Création d'un server node avec le code suivant */
 
 /* Importation du package HTTP natif de node */
-const http = require('http');
+var http = require('http');
 
 /* Importation de app permettant l'utilisation sur le server*/
 const app = require('./app');
 
 const cors = require('cors');
-app.use(cors())
+
 
 /* Ajout du package dotenv servant à masquer les informations de connexion à la base de donnée */
 require('dotenv').config();
@@ -59,6 +59,7 @@ server.on('listening', () => {
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
   console.log('Listening on ' + bind);
 });
+app.use(cors());
 
 /* le server écoute le port écrit ci-dessus*/
 server.listen(port);

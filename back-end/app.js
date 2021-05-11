@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 
 /* package express-session */
+var session = require('express-session');
 
 /* importation de la route pour les sauces */
 const sauceRoutes = require('./routes/sauce');
@@ -58,11 +59,11 @@ app.use(bodyParser.json());
 /* Helmet est un middleware de type Connect , qui est compatible avec des frameworks comme Express */
 app.use(helmet());
 
-/* Mise ne place de la route des sauces */
-app.use('/api/sauces', sauceRoutes);
-
 /* Mise en place de la route des utilisateurs */
 app.use('/api/auth', userRoutes);
+
+/* Mise ne place de la route des sauces */
+app.use('/api/sauces', sauceRoutes);
 
 /* On export l'application express pour y accéder depuis le server */
 
