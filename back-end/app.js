@@ -16,7 +16,7 @@ const helmet = require('helmet');//Configure de manière appropriée des en-têt
 //var session = require('express-session');// Pour éviter que les cookies n'ouvrent pas l'application aux attaques
 
 /* importation de la route pour les sauces */
-const sauceRoutes = require('./routes/sauce');
+const saucesRoutes = require('./routes/sauces');
 
 /* importation de la route utilisateur */
 const userRoutes = require('./routes/user');
@@ -61,12 +61,11 @@ app.use(helmet());
 
 //app.use(session.json());
 
-/* Mise en place de la route des utilisateurs */
+// Routes dédiées aux sauces
+app.use('/api/sauces', saucesRoutes);
+
+// Routes dédiées aux users
 app.use('/api/auth', userRoutes);
 
-/* Mise ne place de la route des sauces */
-app.use('/api/sauces', sauceRoutes);
-
-/* On export l'application express pour y accéder depuis le server */
-
+// Export de l'application express pour y accéder depuis server.js
 module.exports = app;

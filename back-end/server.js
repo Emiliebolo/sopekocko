@@ -1,4 +1,4 @@
-/* Création d'un server node avec le code suivant */
+//* Création d'un server node avec le code suivant *//
 
 /* Importation du package HTTP natif de node */
 var http = require('http');
