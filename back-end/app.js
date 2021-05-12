@@ -10,10 +10,10 @@ const mongoose = require('mongoose');
 
 
 /* Helmet est un middleware de type Connect , qui est compatible avec des frameworks comme Express */
-const helmet = require('helmet');
+const helmet = require('helmet');//Configure de manière appropriée des en-têtes HTTP pour protéger l'application
 
 /* package express-session */
-var session = require('express-session');
+var session = require('express-session');// Pour éviter que les cookies n'ouvrent pas l'application aux attaques
 
 /* importation de la route pour les sauces */
 const sauceRoutes = require('./routes/sauce');
@@ -26,7 +26,7 @@ require('dotenv').config();
 /* Const de application express */
 const app = express();
 
-/* Mise en place du middleware pour acceder à l'API */
+/* Mise en place de la base de donnée pour acceder à l'API */
 
 mongoose.connect('mongodb+srv://smouflette:Guimauveprod13@cluster0.xnz9b.mongodb.net/SCRAM?retryWrites=true&w=majority',
   {
@@ -58,6 +58,8 @@ app.use(bodyParser.json());
 
 /* Helmet est un middleware de type Connect , qui est compatible avec des frameworks comme Express */
 app.use(helmet());
+
+//app.use(session.json());
 
 /* Mise en place de la route des utilisateurs */
 app.use('/api/auth', userRoutes);
