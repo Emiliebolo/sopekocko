@@ -21,6 +21,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "fs": "*",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "maskdata": "^1.1.4",

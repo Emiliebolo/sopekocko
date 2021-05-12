@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');//Configure de manière appropriée des en-têtes HTTP pour protéger l'application
 
 /* package express-session */
-var session = require('express-session');// Pour éviter que les cookies n'ouvrent pas l'application aux attaques
+//var session = require('express-session');// Pour éviter que les cookies n'ouvrent pas l'application aux attaques
 
 /* importation de la route pour les sauces */
 const sauceRoutes = require('./routes/sauce');
