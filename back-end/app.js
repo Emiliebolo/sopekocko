@@ -21,10 +21,15 @@ const saucesRoutes = require('./routes/sauces');
 /* importation de la route utilisateur */
 const userRoutes = require('./routes/user');
 
+/*traiter les requêtes vers la route image en rendant notre dossier images statique */
+const path = require('path');
+
+
 require('dotenv').config();
 
 /* Const de application express */
 const app = express();
+ 
 
 /* Mise en place de la base de donnée pour acceder à l'API */
 
@@ -48,9 +53,6 @@ app.use((req, res, next) => {
   );
   next();
 }); 
-/*const cors = require('cors')
- 
-app.use(cors()) */
 
 
 /* Transforme le corps de la requête en un objet JSON */
@@ -59,7 +61,8 @@ app.use(bodyParser.json());
 /* Helmet est un middleware de type Connect , qui est compatible avec des frameworks comme Express */
 app.use(helmet());
 
-//app.use(session.json());
+
+app.use('/images',express.static(path.join(__dirname,'images')))
 
 // Routes dédiées aux sauces
 app.use('/api/sauces', saucesRoutes);

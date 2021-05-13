@@ -10,7 +10,7 @@ exports.createSauce = (req, res, next) => {
 	const sauceObject = JSON.parse(req.body.sauce);// Nouvel object 'sauceObject' va permettre de stocker les données envoyées par le front-end 
 	delete sauceObject._id;// Supprime l'id généré envoyé par le frond-end
 	const sauce = new Sauce({ // Création d'une instance 
-		...sauceObject,
+		...sauceObject,// Opérateur spread permet de faire une copie de tous les éléments de req.body
 		imageUrl: `${req.protocol}://${req.get('host')}/images/${// on traite l'image 
 			req.file.filename
 		}`,
@@ -39,8 +39,8 @@ exports.createSauce = (req, res, next) => {
 	} else {
 		sauce // Si aucune erreur sauvegarde la sauce dans la base de donnée
 			.save()
-			.then(() => res.status(201).json({ message: 'Objet renregistré !' }))
-			.catch(error => res.status(400).json({ error }));
+			.then(() => res.status(201).json({ message: 'Objet renregistré !' }))//la méthode save() renvoie une promise avec une réponse 201
+			.catch(error => res.status(400).json({ error }));// nous renverrons une réponse avec l'erreur générée par Mongoose ainsi qu'un code d'erreur 400
 	}
 };
 
