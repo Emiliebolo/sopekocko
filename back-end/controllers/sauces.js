@@ -9,8 +9,11 @@ const fs = require('fs');
 exports.createSauce = (req, res, next) => {
 	const sauceObject = JSON.parse(req.body.sauce);// Nouvel object 'sauceObject' va permettre de stocker les données envoyées par le front-end 
 	delete sauceObject._id;// Supprime l'id généré envoyé par le frond-end
+	const name = sauceObject.name; // essayer sauceObject.name
 	const sauce = new Sauce({ // Création d'une instance 
-		...sauceObject,// Opérateur spread permet de faire une copie de tous les éléments de req.body
+		...sauceObject,
+		name: name,
+		// Opérateur spread permet de faire une copie de tous les éléments de req.body
 		imageUrl: `${req.protocol}://${req.get('host')}/images/${// on traite l'image 
 			req.file.filename
 		}`,
@@ -19,6 +22,14 @@ exports.createSauce = (req, res, next) => {
 		usersLiked: [],
 		usersDisliked: [],
 	});
+	Sauce.findOne({
+		name: name.toLowerCase(),
+	}).then(sauces => 
+		{console.log(sauces)})
+.catch(error => res.status(400).json({ error }));
+		
+	
+
 	const validateSauce = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.?!,_\s-]{3,150}$/;// permet de valider  les champ de saisie avec la méthod regex
 	if (
 		!validateSauce.test(sauceObject.name) ||
@@ -160,7 +171,7 @@ exports.likeDislikeSauce = (req, res, next) => {
 					usersDisliked: req.body.userId, // on push l'utilisateur 
 				},
 				$inc: {
-					dislikes: +1,// on enleve un like 
+					dislikes: +1,// on ajoute un dislikes 
 				},
 			},
 		)
@@ -191,7 +202,7 @@ exports.likeDislikeSauce = (req, res, next) => {
 								usersLiked: req.body.userId,
 							},
 							$inc: {
-								likes: -1,// aprés le pull on enleve un le like de l'utilisateur 
+								likes: -1,// aprés le pull on enleve  le like de l'utilisateur 
 							},
 						},
 					)

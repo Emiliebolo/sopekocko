@@ -9,8 +9,10 @@ const router = express.Router();
 
 // Importation du  middleware auth pour sécuriser les routes
 const auth = require('../middleware/auth');
+
 //Importation du middleware multer pour la gestion des images
 const multer = require('../middleware/multer-config');
+
 // Importation du middleware checkSauce  pour la validation des champs lors de la saisie de la sauce
 const checkSauce = require('../middleware/checkSauce');
 

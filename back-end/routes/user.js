@@ -20,6 +20,6 @@ const userCtrl = require('../controllers/user');
 /* Permet de chiffret le password et de l'ajouterutilisateur à la base de donnée */
 router.post('/signup', checkPassword, checkEmail, userCtrl.signup);
 
-router.post('/login', /*checkEmail,*/ userCtrl.login);
+router.post('/login', checkEmail, userCtrl.login);
 
 module.exports = router;
